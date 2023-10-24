@@ -4,6 +4,7 @@ package ro.alex.springonetooneapi.services;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import ro.alex.springonetooneapi.exceptions.UserInvalidAgeException;
 import ro.alex.springonetooneapi.models.dtos.UserDTO;
 import ro.alex.springonetooneapi.models.entities.User;
 import ro.alex.springonetooneapi.repositories.UserRepository;
@@ -29,6 +30,11 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserDTO createUser(UserDTO userDTO) {
+
+        if(userDTO.getAge() <= 0 || userDTO.getAge() > 150){
+            throw new UserInvalidAgeException("age cannot be less than 0 or greater than 150");
+        }
+
         User userEntity = objectMapper.convertValue(userDTO, User.class);
         User userSaveEntity = userRepository.save(userEntity);
 

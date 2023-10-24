@@ -3,6 +3,7 @@ package ro.alex.springonetooneapi.models.dtos;
 
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -18,6 +19,8 @@ public class UserDTO implements Serializable {
     @NotEmpty(message = "last_name cannot be empty")
     private String lastName;
 
+    @NotNull(message = "age cannot null")
+    private int age;
 
     private String email;
 
